@@ -1,7 +1,11 @@
 package com.keiran.customer;
 
+import com.keiran.exception.ResourceNotFound;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class CustomerService {
         private final CustomerDao customerDao;
 
@@ -16,7 +20,7 @@ public class CustomerService {
         public Customer getCustomer(Integer id) {
             return customerDao.selectCustomerById(id)
                     .orElseThrow(
-                            ()->new IllegalArgumentException("customer with id [%s] not found".formatted(id))
+                            ()->new ResourceNotFound("customer with id [%s] not found".formatted(id))
                     );
                 }
 }
